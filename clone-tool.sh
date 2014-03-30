@@ -2,7 +2,7 @@
 #
 #  clone-tool.sh
 #  ----------------------------------------------------------------------
-#  Copyright (c) 2012  code.binbab.com
+#  Copyright (c) 2014  code.binbab.com
 #
 #        AUTHORSHIP HASH: d9ad194b974b1b834181c49860589110b37a9c1f
 #
@@ -18,7 +18,7 @@
 #    http://www.fsf.org/licenses/gpl.txt
 #  ----------------------------------------------------------------------
 
-RELEASE="2012-02-20"
+RELEASE="2014-03-29"
 #
 #  The latest version of this script is available at
 #    http://www.binbab.com/code
@@ -93,6 +93,16 @@ function prepClone() {
     cat /dev/null > /var/log/messages
     cat /dev/null > /var/log/secure
     history -c && rm -f /root/.bash_history &> /dev/null
+		find /home -name .bash_history -delete &> /dev/null
+
+		if [ -e '/var/lib/cloud' ] ; then
+      echo
+      echo "+ Resetting cloud-init..."
+      echo
+      sleep 1
+
+		  rm -Rf /var/lib/cloud/*
+		fi
     
     echo
     echo "+ Resetting network config..."
